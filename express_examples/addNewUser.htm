@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<title>My jQuery JSON Web Page</title>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+JSONTest = function() {
+
+    var resultDiv = $("#resultDivContainer");
+	alert("test before sending---");
+    $.ajax({
+        url: "http://localhost:8081/addUser",
+        type: "POST",
+		<!--data : JSON.stringify({name: "Dennis",password: "password4", profession : "librarian", id : 2}),-->
+        data: '{ "name" : "hesham" , "password" : "password4", "profession" : "librarian", "id" : 2 }',
+        dataType: "json",
+        success: function (result) {
+            switch (result) {
+                case true :
+					alert("return true");
+					resultDiv.innerHtml(result);
+                    break;
+                default :
+					alert("return something else");
+					alert(result.name);
+					alert(result.password);
+					alert(result.id);
+					resultDiv.innerhtml(result);
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+        }
+    });
+};
+
+</script>
+</head>
+<body>
+
+<h1>My jQuery JSON Web Page</h1>
+
+<div id="resultDivContainer"></div>
+
+<button type="button" onclick="JSONTest()">JSON</button>
+
+</body>
+</html> 
